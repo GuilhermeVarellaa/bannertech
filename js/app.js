@@ -213,22 +213,33 @@ button>
   }
   // Exibe toast de notificação
   function showToast(message, type = 'success') {
-    const toastContainer = document.getElementById('toastcontainer');
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    const icon = type === 'success'
-      ? '<i class="fas fa-check-circle"></i>'
-      : '<i class="fas fa-exclamation-circle"></i>';
-    toast.innerHTML = `${icon} <span>${message}</span>`;
-    toastContainer.appendChild(toast);
-    // Remove o toast após 3 segundos
-    setTimeout(() => {
-      toast.style.opacity = '0';
-      setTimeout(() => {
-        toastContainer.removeChild(toast);
-      }, 300);
-    }, 3000);
+  const toastContainer = document.getElementById('toast-container');
+  
+  // Verificar se o elemento existe
+  if (!toastContainer) {
+    console.warn('Toast container não encontrado');
+    return;
   }
+  
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  
+  const icon = type === 'success' 
+    ? '<i class="fas fa-check-circle"></i>' 
+    : '<i class="fas fa-exclamation-circle"></i>';
+  
+  toast.innerHTML = `${icon} <span>${message}</span>`;
+  
+  toastContainer.appendChild(toast);
+  
+  // Remove o toast após 3 segundos
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => {
+      toastContainer.removeChild(toast);
+    }, 300);
+  }, 3000);
+}
 });
 // Funções de API
 // Gera o banner através da API
