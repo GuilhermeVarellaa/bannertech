@@ -213,14 +213,15 @@ button>
   }
   // Exibe toast de notificação
   function showToast(message, type = 'success') {
-  const toastContainer = document.getElementById('toast-container');
+  // Busca pelo elemento usando a classe em vez do ID
+  const toastContainer = document.querySelector('.toast-container');
   
-  // Verificar se o elemento existe
   if (!toastContainer) {
     console.warn('Toast container não encontrado');
     return;
   }
   
+  // Resto do código permanece igual
   const toast = document.createElement('div');
   toast.className = `toast toast-${type}`;
   
@@ -236,7 +237,9 @@ button>
   setTimeout(() => {
     toast.style.opacity = '0';
     setTimeout(() => {
-      toastContainer.removeChild(toast);
+      if (toastContainer.contains(toast)) {
+        toastContainer.removeChild(toast);
+      }
     }, 300);
   }, 3000);
 }
